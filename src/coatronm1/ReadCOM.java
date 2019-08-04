@@ -11,13 +11,13 @@ import java.text.SimpleDateFormat;
 
 public class ReadCOM implements Runnable, SerialPortEventListener {
 
-    static CommPortIdentifier portId;
-    static Enumeration portList;
-    InputStream inputStream;
-    SerialPort serialPort;
-    Thread readThread;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
-    SimpleDateFormat fileNameDateFormat = new SimpleDateFormat("yyy-MM-dd");
+    private static CommPortIdentifier portId;
+    private static Enumeration portList;
+    private InputStream inputStream;
+    private SerialPort serialPort;
+    private final Thread readThread;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyy HH:mm:ss");
+    private SimpleDateFormat fileNameDateFormat = new SimpleDateFormat("yyy-MM-dd");
     private static boolean validData = false;
     private Calendar calendar = Calendar.getInstance();
     private static int timeOffset = 0;
@@ -77,6 +77,7 @@ public class ReadCOM implements Runnable, SerialPortEventListener {
         System.out.println("Waiting for data ...");
     }
 
+    @Override
     public void run() {
         try {
             Thread.sleep(1000);
@@ -85,6 +86,7 @@ public class ReadCOM implements Runnable, SerialPortEventListener {
         }
     }
 
+    @Override
     public void serialEvent(SerialPortEvent event) {
         switch (event.getEventType()) {
             case SerialPortEvent.BI:
